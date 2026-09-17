@@ -20,7 +20,8 @@ class WordleTest {
     @Test
     void dictionaryFiltersByLength() {
         WordleDictionary d = dictOf("дом", "слово", "ёжики", "абвгд");
-        assertEquals(2, d.size()); // "слово" и "абвгд" ("ёжики" -> "ежики"? нет, длина 5)
+        assertEquals(3, d.size());
+        assertTrue(d.contains("ежики"));
     }
 
     @Test
@@ -100,13 +101,13 @@ class WordleTest {
 
     @Test
     void loseAfterMaxSteps() throws GameException {
-        WordleGame game = new WordleGame(dictOf("слово", "абвгд"), LOG);
-        // 6 промахов
+        WordleGame game = new WordleGame(dictOf("слово", "абвгд"), "слово", LOG);
         for (int i = 0; i < game.getMaxSteps(); i++) {
-            game.checkWord("абвгд");
+            game.checkWord("абвгд");   // заведомо не ответ
         }
         assertTrue(game.isGameOver());
         assertFalse(game.isWin());
+        assertEquals(game.getMaxSteps(), game.getSteps());
     }
 
     @Test

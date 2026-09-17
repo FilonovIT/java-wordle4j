@@ -1,10 +1,7 @@
 package ru.yandex.practicum;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
 в этом классе хранится словарь и состояние игры
@@ -39,6 +36,20 @@ public class WordleGame {
         }
         this.userInputs = new ArrayList<>();
         log.println("Новая игра. Длина слова: " + answer.length());
+    }
+
+    WordleGame(WordleDictionary dict, String answer, PrintWriter log) {
+        if (dict == null || dict.size() == 0) {
+            throw new IllegalArgumentException("Словарь пуст, невозможно начать игру");
+        }
+        if (answer == null || answer.length() != 5) {
+            throw new IllegalArgumentException("Ответ должен состоять из 5 букв");
+        }
+        this.dictionary = dict;
+        this.log = Objects.requireNonNull(log, "log не должен быть null");
+        this.answer = WordleDictionary.normalize(answer);
+        this.userInputs = new ArrayList<>();
+        log.println("Новая игра. Длина слова: " + this.answer.length());
     }
 
     /**
