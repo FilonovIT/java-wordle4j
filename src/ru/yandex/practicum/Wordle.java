@@ -16,7 +16,7 @@ public class Wordle {
             WordleDictionaryLoader loader = new WordleDictionaryLoader(log);
             WordleDictionary dict = loader.readingTheDictionary();
 
-            if (dict.size() == 0) {
+            if (dict.getWords().isEmpty()) {
                 System.out.println("Словарь пуст, игра невозможна.");
                 return;
             }
@@ -30,9 +30,8 @@ public class Wordle {
             play(game, log);
 
             if (game.isWin()) {
-                System.out.println("Победа! Слово: " + game.getAnswer()
-                        + ". Попыток: " + game.getSteps());
-                log.println("Победа за " + game.getSteps() + " попыток");
+                System.out.printf("Победа! Слово: %s. Попыток: %d%n", game.getAnswer(), game.getSteps());
+                log.printf("Победа за %d попыток%n", game.getSteps());
             } else {
                 System.out.println("Проигрыш. Загаданное слово: " + game.getAnswer());
                 log.println("Проигрыш. Ответ: " + game.getAnswer());
